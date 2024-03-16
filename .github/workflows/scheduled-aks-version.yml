@@ -37,7 +37,7 @@ jobs:
 
       - name: Run script file
         run: |
-          cd .github/workflows
+          cd scripts
           pwd
           chmod +x ./miniconda.sh
           ./miniconda.sh
