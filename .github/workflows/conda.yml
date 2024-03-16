@@ -8,4 +8,5 @@ dependencies:
       - azure-communication-email
       - azure-identity
       - azure-mgmt-containerservice
+      - azure-storage-blob
 

@@ -30,16 +30,26 @@ class EmailMultipleRecipientSample(object):
         response = client.managed_clusters.list_kubernetes_versions(
             location="westeurope",
         )
-        print(response.values)
+        list_of_versions = []
+        list_of_preview_versions = []
+        #print(response.values)
+        for i in response.values:
+            if(i.is_preview) == True:
+                list_of_preview_versions.append(float(i.version))
+            else:
+                list_of_versions.append(float(i.version))
 
-        response2 = "la la la la"
+        print(f"list of versions: {list_of_versions}")
+        print(f"list of preview versions: {list_of_preview_versions}")
+
+        #response2 = "la la la la"
 
         # creating the email message
         message = {
             "content": {
                 "subject": "This is the subject",
                 "plainText": "This is the body",
-                "html": f"<html><h1>{response2}</h1></html>"
+                "html": f"<html><h1>{list_of_versions}</h1></html>"
             },
             "recipients": {
                 "to": [

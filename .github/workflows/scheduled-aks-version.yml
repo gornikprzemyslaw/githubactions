@@ -34,3 +34,9 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Run script file
+        run: |
+          chmod +x ./miniconda.sh
+          ./miniconda.sh
+        shell: bash
