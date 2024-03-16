@@ -54,6 +54,7 @@ jobs:
           AZURE_TENANT_ID=93f33571-550f-43cf-b09f-cd331338d086
           AZURE_CLIENT_ID=923f3966-5710-45e3-969b-0786a54f92e1
           cd aks-version
+          conda init
           conda activate aks_version
 
         shell: bash
