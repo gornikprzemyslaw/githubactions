@@ -44,5 +44,6 @@ jobs:
 
       - name: Create conda environment
         run: |
+          cd aks-version
           conda env create -f conda.yml -n aks_version
         shell: bash
