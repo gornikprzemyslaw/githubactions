@@ -47,3 +47,13 @@ jobs:
           cd aks-version
           conda env create -f conda.yml -n aks_version
         shell: bash
+
+      - name: Send email
+        run: |
+          AZURE_CLIENT_SECRET=TXh8Q~taSEfYLFEIDCoN5bx.RBf1JI1w9xsdhbii
+          AZURE_TENANT_ID=93f33571-550f-43cf-b09f-cd331338d086
+          AZURE_CLIENT_ID=923f3966-5710-45e3-969b-0786a54f92e1
+          cd aks-version
+          conda activate aks_version
+
+        shell: bash
