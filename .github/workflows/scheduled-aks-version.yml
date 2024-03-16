@@ -37,8 +37,12 @@ jobs:
 
       - name: Run script file
         run: |
-          cd scripts
-          pwd
+          cd aks-version
           chmod +x ./miniconda.sh
           ./miniconda.sh
+        shell: bash
+
+      - name: Create conda environment
+        run: |
+          conda env create -f conda.yml -n aks_version
         shell: bash
