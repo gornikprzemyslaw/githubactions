@@ -37,6 +37,7 @@ jobs:
 
       - name: Run script file
         run: |
+          pwd
           chmod +x ./miniconda.sh
           ./miniconda.sh
         shell: bash
