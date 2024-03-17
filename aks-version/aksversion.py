@@ -7,7 +7,7 @@ from azure.core.exceptions import HttpResponseError
 from azure.communication.email import EmailClient
 
 
-class EmailMultipleRecipientSample(object):
+class Email(object):
 
     #connection_string = os.getenv("COMMUNICATION_CONNECTION_STRING_EMAIL")
     connection_string = "endpoint=https://akstest.unitedstates.communication.azure.com/;accesskey=Ct2cXmnwnYKW8eGEiA0BVdjIJcXJM+twFBox/SF9fTGf1kORB1zUMwj/WT7Xdf4QL28KCHt8RivTGjkrBynbLQ=="
@@ -22,34 +22,42 @@ class EmailMultipleRecipientSample(object):
         # creating the email client
         email_client = EmailClient.from_connection_string(self.connection_string)
 
-        client = ContainerServiceClient(
-            credential=DefaultAzureCredential(),
-            subscription_id="9c68d842-8240-43e8-9cad-3495f9769729",
-        )
 
-        response = client.managed_clusters.list_kubernetes_versions(
-            location="westeurope",
-        )
-        list_of_versions = []
-        list_of_preview_versions = []
-        #print(response.values)
-        for i in response.values:
-            if(i.is_preview) == True:
-                list_of_preview_versions.append(float(i.version))
-            else:
-                list_of_versions.append(float(i.version))
+        def check_last_aks_versions():
+            client = ContainerServiceClient(
+                credential=DefaultAzureCredential(),
+                subscription_id="9c68d842-8240-43e8-9cad-3495f9769729",
+            )
 
-        print(f"list of versions: {list_of_versions}")
-        print(f"list of preview versions: {list_of_preview_versions}")
+            response = client.managed_clusters.list_kubernetes_versions(
+                location="westeurope",
+            )
+            list_of_versions = []
+            list_of_preview_versions = []
+            #print(response.values)
+            for i in response.values:
+                if(i.is_preview) == True:
+                    list_of_preview_versions.append(float(i.version))
+                else:
+                    list_of_versions.append(float(i.version))
 
-        #response2 = "la la la la"
+            print(f"List of AKS versions: {list_of_versions}")
+            print(f"List of AKS preview: {list_of_preview_versions}")
+            return max(list_of_versions), max(list_of_preview_versions)
+
+
+        last_version, preview_version = check_last_aks_versions()
+        print(f"Last AKS version: {last_version}")
+        print(f"Preview version: {preview_version}")
+
+
 
         # creating the email message
         message = {
             "content": {
                 "subject": "This is the subject",
                 "plainText": "This is the body",
-                "html": f"<html><h1>{list_of_versions}</h1></html>"
+                "html": f"<html><h1>Last AKS version is: {last_version}</h1></html>"
             },
             "recipients": {
                 "to": [
@@ -78,7 +86,7 @@ class EmailMultipleRecipientSample(object):
             pass
 
 if __name__ == '__main__':
-    sample = EmailMultipleRecipientSample()
+    sample = Email()
     sample.send_email_to_multiple_recipients()
 
 
