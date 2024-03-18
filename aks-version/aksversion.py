@@ -15,6 +15,7 @@ class Email(object):
     print(f"connection_string: {connection_string} sender_address: {sender_address} ")
 
 
+
     def send_email_to_multiple_recipients(self):
 
         def check_minor_and_patch_versions():
