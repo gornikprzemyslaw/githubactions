@@ -8,7 +8,7 @@ from azure.communication.email import EmailClient
 
 class Email(object):
 
-    connection_string = os.getenv("CONNECTION_STRING")
+    connection_string = "endpoint=https://akstest.unitedstates.communication.azure.com/;accesskey=Ct2cXmnwnYKW8eGEiA0BVdjIJcXJM+twFBox/SF9fTGf1kORB1zUMwj/WT7Xdf4QL28KCHt8RivTGjkrBynbLQ=="
     sender_address = os.getenv("SENDER_ADDRESS")
     recipient_address = os.getenv("RECIPIENT_ADDRESS")
     second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
