@@ -1,7 +1,6 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.containerservice import ContainerServiceClient
 import os
-import sys
 from azure.core.exceptions import HttpResponseError
 
 from azure.communication.email import EmailClient
@@ -9,21 +8,19 @@ from azure.communication.email import EmailClient
 
 class Email(object):
 
-    #connection_string = os.getenv("COMMUNICATION_CONNECTION_STRING_EMAIL")
-    connection_string = "endpoint=https://akstest.unitedstates.communication.azure.com/;accesskey=Ct2cXmnwnYKW8eGEiA0BVdjIJcXJM+twFBox/SF9fTGf1kORB1zUMwj/WT7Xdf4QL28KCHt8RivTGjkrBynbLQ=="
-    #sender_address = os.getenv("SENDER_ADDRESS")
-    sender_address = "DoNotReply@f5ca9f5e-eee2-4e19-9b3d-e9a13e7c54fb.azurecomm.net"
-    #recipient_address = os.getenv("RECIPIENT_ADDRESS")
-    recipient_address = "przemyslaw.gornik@dxc.com"
-    #second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
-    second_recipient_address = "gornik.przemek@gmail.com"
+    connection_string = os.getenv("CONNECTION_STRING")
+    sender_address = os.getenv("SENDER_ADDRESS")
+    recipient_address = os.getenv("RECIPIENT_ADDRESS")
+    second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
+    print(f"connection_string: {connection_string} sender_address: {sender_address} ")
+
 
     def send_email_to_multiple_recipients(self):
 
         def check_minor_and_patch_versions():
             client = ContainerServiceClient(
                 credential=DefaultAzureCredential(),
-                subscription_id="9c68d842-8240-43e8-9cad-3495f9769729",
+                subscription_id=os.getenv("SUBSCRIPTION_ID"),
             )
 
             response = client.managed_clusters.list_kubernetes_versions(
@@ -32,7 +29,6 @@ class Email(object):
             list_of_versions = []
             list_of_preview_versions = []
             list_of_patch_versions = []
-            #print(response.values)
             for i in response.values:
                 for key in i.patch_versions.keys():
                     if(i.is_preview != True):
@@ -63,7 +59,7 @@ class Email(object):
             import json
             import ast
 
-            storage_account_url = "https://aksversion.blob.core.windows.net/"
+            storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
             container_name = "versions"
             creds = DefaultAzureCredential()
             service_client = BlobServiceClient(
@@ -154,7 +150,7 @@ class Email(object):
             import json
             import ast
 
-            storage_account_url = "https://aksversion.blob.core.windows.net/"
+            storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
             container_name = "versions"
             creds = DefaultAzureCredential()
             service_client = BlobServiceClient(

@@ -53,6 +53,14 @@ jobs:
           export AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
           export AZURE_TENANT_ID=${{ vars.AZURE_TENANT_ID }}
           export AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
+          export CONNECTION_STRING=${{ secrets.CONNECTION_STRING }}
+          export STORAGE_ACCOUNT_URL=${{ secrets.STORAGE_ACCOUNT_URL }}
+          export SENDER_ADDRESS=${{ vars.SENDER_ADDRESS }}
+          export RECIPIENT_ADDRESS=${{ vars.RECIPIENT_ADDRESS }}
+          export SECOND_RECIPIENT_ADDRESS=${{ vars.SECOND_RECIPIENT_ADDRESS }}
+          export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
+          
+          
           cd aks-version
           conda init
           eval "$(conda shell.bash hook)"
