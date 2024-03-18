@@ -50,9 +50,9 @@ jobs:
 
       - name: Send email
         run: |
-          export AZURE_CLIENT_SECRET=TXh8Q~taSEfYLFEIDCoN5bx.RBf1JI1w9xsdhbii
-          export AZURE_TENANT_ID=93f33571-550f-43cf-b09f-cd331338d086
-          export AZURE_CLIENT_ID=923f3966-5710-45e3-969b-0786a54f92e1
+          export AZURE_CLIENT_SECRET=${{ AZURE_CLIENT_SECRET }}
+          export AZURE_TENANT_ID=${{ vars.AZURE_TENANT_ID }}
+          export AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
           cd aks-version
           conda init
           eval "$(conda shell.bash hook)"
