@@ -12,8 +12,6 @@ class Email(object):
     sender_address = os.getenv("SENDER_ADDRESS")
     recipient_address = os.getenv("RECIPIENT_ADDRESS")
     second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
-    print(f"connection_string: {connection_string} sender_address: {sender_address} ")
-
 
 
     def send_email_to_multiple_recipients(self):
