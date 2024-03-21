@@ -47,6 +47,7 @@ jobs:
       - name: Install packages
         run: |
           cd aks-version
+          poetry env list
           poetry init
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
