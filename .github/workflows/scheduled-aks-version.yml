@@ -7,12 +7,16 @@ on:
 #  schedule:
 #    - cron: '*/15 * * * *'
   push:
-    branches: [ "main" ]
+    branches: [ "adding" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "adding" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,15 +30,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID }}
 
       - name: Run script file
         run: |
@@ -51,16 +52,16 @@ jobs:
 
       - name: Send email
         run: |
-          export AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
-          export AZURE_TENANT_ID=${{ vars.AZURE_TENANT_ID }}
-          export AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
+          #export AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
+          #export AZURE_TENANT_ID=${{ vars.AZURE_TENANT_ID }}
+          #export AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
           export ENDPOINT=${{ secrets.ENDPOINT }}
           export ACCESS_KEY=${{ secrets.ACCESS_KEY }}
           export STORAGE_ACCOUNT_URL=${{ secrets.STORAGE_ACCOUNT_URL }}
           export SENDER_ADDRESS=${{ vars.SENDER_ADDRESS }}
           export RECIPIENT_ADDRESS=${{ vars.RECIPIENT_ADDRESS }}
           export SECOND_RECIPIENT_ADDRESS=${{ vars.SECOND_RECIPIENT_ADDRESS }}
-          export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
+          #export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
           
           
           cd aks-version
