@@ -37,6 +37,12 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID }}
 
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry --version
+        shell: bash
+
       - name: Run script file
         run: |
           cd aks-version
