@@ -61,7 +61,7 @@ jobs:
           export SENDER_ADDRESS=${{ vars.SENDER_ADDRESS }}
           export RECIPIENT_ADDRESS=${{ vars.RECIPIENT_ADDRESS }}
           export SECOND_RECIPIENT_ADDRESS=${{ vars.SECOND_RECIPIENT_ADDRESS }}
-          #export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
+          export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
           
           
           cd aks-version
