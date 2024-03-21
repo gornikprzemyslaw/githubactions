@@ -53,16 +53,16 @@ jobs:
         shell: bash
 
       - name: Send email
-        run: |
-          export ENDPOINT=${{ secrets.ENDPOINT }}
-          export ACCESS_KEY=${{ secrets.ACCESS_KEY }}
-          export STORAGE_ACCOUNT_URL=${{ secrets.STORAGE_ACCOUNT_URL }}
-          export SENDER_ADDRESS=${{ vars.SENDER_ADDRESS }}
-          export RECIPIENT_ADDRESS=${{ vars.RECIPIENT_ADDRESS }}
-          export SECOND_RECIPIENT_ADDRESS=${{ vars.SECOND_RECIPIENT_ADDRESS }}
-          export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
-          
-          
+        env:
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          STORAGE_ACCOUNT_URL: ${{ secrets.STORAGE_ACCOUNT_URL }}
+          SENDER_ADDRESS: ${{ vars.SENDER_ADDRESS }}
+          RECIPIENT_ADDRESS: ${{ vars.RECIPIENT_ADDRESS }}
+          SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
+          SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+
+        run: |   
           cd aks-version
           poetry run python aksversion.py
 
