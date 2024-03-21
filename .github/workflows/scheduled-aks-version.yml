@@ -41,6 +41,7 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           poetry --version
+          python --version
         shell: bash
 
       - name: Run script file
