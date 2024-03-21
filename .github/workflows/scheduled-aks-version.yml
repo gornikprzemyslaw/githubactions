@@ -48,20 +48,7 @@ jobs:
         run: |
           cd aks-version
           poetry init
-          poetry add azure-identity
-        shell: bash
-
-      - name: Run script file
-        run: |
-          cd aks-version
-          chmod +x ./miniconda.sh
-          ./miniconda.sh
-        shell: bash
-
-      - name: Create conda environment
-        run: |
-          cd aks-version
-          conda env create -f conda.yml -n aks_version
+          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
 
       - name: Send email
@@ -76,9 +63,6 @@ jobs:
           
           
           cd aks-version
-          conda init
-          eval "$(conda shell.bash hook)"
-          conda activate aks_version
           python aksversion.py
 
         shell: bash
