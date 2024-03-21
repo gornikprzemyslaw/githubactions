@@ -47,7 +47,9 @@ jobs:
       - name: Install packages
         run: |
           cd aks-version
-
+          poetry init
+          poetry env list
+          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
 
       - name: Send email
@@ -62,9 +64,6 @@ jobs:
           
           
           cd aks-version
-          poetry init
-          poetry env list
-          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
-          python aksversion.py
+          poetry run python aksversion.py
 
         shell: bash
