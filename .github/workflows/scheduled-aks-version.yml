@@ -63,6 +63,6 @@ jobs:
           
           
           cd aks-version
-          python aksversion.py
+          poetry run aksversion.py
 
         shell: bash
