@@ -52,30 +52,15 @@ jobs:
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
 
-      - name: Download artifact
-        uses: actions/github-script@v6
-        continue-on-error: true
-        env:
-          WORKFLOW_FILENAME: scheduled-aks-version.yml
-          ARTIFACT_NAME: minor-versions
-          ARTIFACT_FILENAME: minor-versions.zip
-          UNZIP_DIR: /home/runner
-        with:
-          script: |
-            const script = require('./scripts/download-previous-artifact.js')
-            await script({github, context, core})
-      - name: Download artifact
-        uses: actions/github-script@v6
-        continue-on-error: true
-        env:
-          WORKFLOW_FILENAME: scheduled-aks-version.yml
-          ARTIFACT_NAME: patch-versions
-          ARTIFACT_FILENAME: patch-versions.zip
-          UNZIP_DIR: /home/runner
-        with:
-          script: |
-            const script = require('./scripts/download-previous-artifact.js')
-            await script({github, context, core}) 
+#      - name: Download a aks_versions
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: aks_versions
+#
+#      - name: Download a aks_patch_versions
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: aks_patch_versions
 
       - name: Send email
         env:
@@ -87,15 +72,15 @@ jobs:
           SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
         run: |   
-          #cd aks-version
-          #poetry run python aksversion.py
+          cd aks-version
+          poetry run python aksversion.py
           ls
         shell: bash
       - uses: actions/upload-artifact@v4
         with:
           name: minor-versions
-          path: /home/runner/aks_versions.json
+          path: aks_versions.json
       - uses: actions/upload-artifact@v4
         with:
           name: patch-versions
-          path: /home/runner/aks_patch_versions.json
+          path: aks_patch_versions.json

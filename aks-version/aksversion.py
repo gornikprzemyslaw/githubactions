@@ -41,16 +41,16 @@ class Email(object):
 
             print(f"List of AKS minor versions: {list_of_versions}")
             print(f"List of AKS preview: {list_of_preview_versions}")
-            # with open("/home/runner/aks_versions.json", "w") as fp:
-            #     json.dump(list_of_versions, fp)
-            # with open("/home/runner/aks_patch_versions.json", "w") as fp:
-            #     json.dump(list_of_patch_versions, fp)
-            with open("/home/runner/aks_versions.json", "r") as fp:
-                aversions = json.load(fp)
-            with open("/home/runner/aks_patch_versions.json", "r") as fp:
-                patchversions = json.load(fp)
-            print(aversions)
-            print(patchversions)
+            with open("aks_versions.json", "w") as fp:
+                json.dump(list_of_versions, fp)
+            with open("aks_patch_versions.json", "w") as fp:
+                json.dump(list_of_patch_versions, fp)
+            # with open("/home/runner/aks_versions.json", "r") as fp:
+            #     aversions = json.load(fp)
+            # with open("/home/runner/aks_patch_versions.json", "r") as fp:
+            #     patchversions = json.load(fp)
+            # print(aversions)
+            # print(patchversions)
 
             last_version = max(list_of_versions)
             if len(list_of_preview_versions) == 0:
