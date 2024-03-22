@@ -19,83 +19,10 @@ class Email(object):
 
     def send_email_to_multiple_recipients(self):
 
-        # def check_minor_and_patch_versions():
-        #     client = ContainerServiceClient(
-        #         credential=DefaultAzureCredential(),
-        #         subscription_id=os.getenv("SUBSCRIPTION_ID"),
-        #     )
-        #
-        #     response = client.managed_clusters.list_kubernetes_versions(
-        #         location="westeurope",
-        #     )
-        #     list_of_versions = []
-        #     list_of_preview_versions = []
-        #     list_of_patch_versions = []
-        #     for i in response.values:
-        #         for key in i.patch_versions.keys():
-        #             if i.is_preview is None:
-        #                 list_of_patch_versions.append(key)
-        #         if i.is_preview is True:
-        #             list_of_preview_versions.append(float(i.version))
-        #         else:
-        #             list_of_versions.append(float(i.version))
-        #
-        #     with open("../cda/environments/dev.tfvars", "r") as file_in:
-        #         data = hcl2.load(file_in)
-        #
-        #     current_aks_minor_version = data["aks_minor_version"]
-        #     logger.info(f"Current AKS minor version: {current_aks_minor_version}")
-        #
-        #     last_version = max(list_of_versions, default=None)
-        #     if len(list_of_preview_versions) == 0:
-        #         preview_version = None
-        #     else:
-        #         preview_version = max(list_of_preview_versions)
-        #     return last_version, preview_version, list_of_patch_versions
-
         last_version, preview_version, list_of_patch_versions = check_minor_and_patch_versions()
         logger.info(f"Last AKS version: {last_version}")
         logger.info(f"Preview version: {preview_version}")
         logger.info(f"List of AKS patch versions: {list_of_patch_versions}")
-
-
-
-        # def read_blobs():
-        #     from azure.storage.blob import BlobClient, BlobServiceClient
-        #     import json
-        #     import ast
-        #
-        #     storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
-        #     container_name = "versions"
-        #     creds = DefaultAzureCredential()
-        #     service_client = BlobServiceClient(
-        #         account_url=storage_account_url,
-        #         credential=creds
-        #     )
-        #
-        #     minor_versions_blob = "aks_versions.json"
-        #     minor_versions_url = f"{storage_account_url}/{container_name}/{minor_versions_blob}"
-        #     minor_version_client = BlobClient.from_blob_url(
-        #         blob_url=minor_versions_url,
-        #         credential=creds
-        #     )
-        #     # read blob
-        #     minor_versions_download = minor_version_client.download_blob()
-        #     minor_versions_content = minor_versions_download.readall().decode("utf-8")
-        #     previous_minor_versions = ast.literal_eval(minor_versions_content)
-        #
-        #     patch_versions_blob = "aks_patch_versions.json"
-        #     patch_versions_url = f"{storage_account_url}/{container_name}/{patch_versions_blob}"
-        #     patch_version_client = BlobClient.from_blob_url(
-        #         blob_url=patch_versions_url,
-        #         credential=creds
-        #     )
-        #     # read blob
-        #     patch_versions_download = patch_version_client.download_blob()
-        #     patch_versions_content = patch_versions_download.readall().decode("utf-8")
-        #     previous_patch_versions = ast.literal_eval(patch_versions_content)
-        #
-        #     return previous_minor_versions[0], previous_patch_versions
 
         previous_minor_versions, previous_patch_versions = read_blobs()
         logger.info(f"Previous minor version: {previous_minor_versions}")
@@ -149,55 +76,56 @@ class Email(object):
             except HttpResponseError as ex:
                 logger.info(ex)
                 pass
-        def save_blobs():
-            from azure.storage.blob import BlobClient, BlobServiceClient
-            import json
-            import ast
 
-            storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
-            container_name = "versions"
-            creds = DefaultAzureCredential()
-            service_client = BlobServiceClient(
-                account_url=storage_account_url,
-                credential=creds
-            )
-
-            minor_versions_blob = "aks_versions.json"
-            minor_versions_url = f"{storage_account_url}/{container_name}/{minor_versions_blob}"
-            minor_version_client = BlobClient.from_blob_url(
-                blob_url=minor_versions_url,
-                credential=creds
-            )
-            # save blob
-            save_minor_version = [last_version]
-            with open("save_minor_version", "w") as fp:
-                json.dump(save_minor_version, fp)
-
-            with open("save_minor_version", "r") as fp:
-                b = json.load(fp)
-
-            with open("save_minor_version", "rb") as blob_file:
-                minor_version_client.upload_blob(data=blob_file, overwrite=True)
-
-            patch_versions_blob = "aks_patch_versions.json"
-            patch_versions_url = f"{storage_account_url}/{container_name}/{patch_versions_blob}"
-            patch_version_client = BlobClient.from_blob_url(
-                blob_url=patch_versions_url,
-                credential=creds
-            )
-            # save blob
-
-            with open("list_of_patch_versions", "w") as fp:
-                json.dump(list_of_patch_versions, fp)
-
-            with open("list_of_patch_versions", "r") as fp:
-                b = json.load(fp)
-
-            with open("list_of_patch_versions", "rb") as blob_file:
-                patch_version_client.upload_blob(data=blob_file, overwrite=True)
+        # def save_blobs(last_version, list_of_patch_versions):
+        #     from azure.storage.blob import BlobClient, BlobServiceClient
+        #     import json
+        #     import ast
+        #
+        #     storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
+        #     container_name = "versions"
+        #     creds = DefaultAzureCredential()
+        #     service_client = BlobServiceClient(
+        #         account_url=storage_account_url,
+        #         credential=creds
+        #     )
+        #
+        #     minor_versions_blob = "aks_versions.json"
+        #     minor_versions_url = f"{storage_account_url}/{container_name}/{minor_versions_blob}"
+        #     minor_version_client = BlobClient.from_blob_url(
+        #         blob_url=minor_versions_url,
+        #         credential=creds
+        #     )
+        #     # save blob
+        #     save_minor_version = [last_version]
+        #     with open("save_minor_version", "w") as fp:
+        #         json.dump(save_minor_version, fp)
+        #
+        #     with open("save_minor_version", "r") as fp:
+        #         b = json.load(fp)
+        #
+        #     with open("save_minor_version", "rb") as blob_file:
+        #         minor_version_client.upload_blob(data=blob_file, overwrite=True)
+        #
+        #     patch_versions_blob = "aks_patch_versions.json"
+        #     patch_versions_url = f"{storage_account_url}/{container_name}/{patch_versions_blob}"
+        #     patch_version_client = BlobClient.from_blob_url(
+        #         blob_url=patch_versions_url,
+        #         credential=creds
+        #     )
+        #     # save blob
+        #
+        #     with open("list_of_patch_versions", "w") as fp:
+        #         json.dump(list_of_patch_versions, fp)
+        #
+        #     with open("list_of_patch_versions", "r") as fp:
+        #         b = json.load(fp)
+        #
+        #     with open("list_of_patch_versions", "rb") as blob_file:
+        #         patch_version_client.upload_blob(data=blob_file, overwrite=True)
 
         send_message()
-        #save_blobs()
+        save_blobs(last_version, list_of_patch_versions)
 
 if __name__ == '__main__':
     sample = Email()
