@@ -52,6 +52,31 @@ jobs:
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
 
+      - name: Download artifact
+        uses: actions/github-script@v6
+        continue-on-error: true
+        env:
+          WORKFLOW_FILENAME: scheduled-aks-version.yml
+          ARTIFACT_NAME: minor-versions
+          ARTIFACT_FILENAME: minor-versions.zip
+          UNZIP_DIR: /home/runner
+        with:
+          script: |
+            const script = require('./scripts/download-previous-artifact.js')
+            await script({github, context, core})
+      - name: Download artifact
+        uses: actions/github-script@v6
+        continue-on-error: true
+        env:
+          WORKFLOW_FILENAME: scheduled-aks-version.yml
+          ARTIFACT_NAME: patch-versions
+          ARTIFACT_FILENAME: patch-versions.zip
+          UNZIP_DIR: /home/runner
+        with:
+          script: |
+            const script = require('./scripts/download-previous-artifact.js')
+            await script({github, context, core}) 
+
       - name: Send email
         env:
           ENDPOINT: ${{ secrets.ENDPOINT }}
