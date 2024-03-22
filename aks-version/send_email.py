@@ -29,7 +29,6 @@ class Email(object):
 
         def send_message():
 
-            # creating the email client
             email_client = EmailClient.from_connection_string(self.connection_string)
 
             patch_version = list(set(list_of_patch_versions) - set(previous_patch_versions))
