@@ -34,7 +34,7 @@ class Email(object):
             patch_version = list(set(list_of_patch_versions) - set(previous_patch_versions))
             logger.info(f"New patch version: {patch_version}")
             version_message = None
-            if last_version > current_minor_version + 1:
+            if last_version > current_minor_version + 0.01:
                 version_message = f"Last AKS minor version is: {last_version}."
             elif(len(patch_version) != 0):
                 version_message = f"Last AKS patch version is: {patch_version}."
