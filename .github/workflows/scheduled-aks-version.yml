@@ -52,15 +52,15 @@ jobs:
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
 
-#      - name: Download a aks_versions
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: aks_versions
-#
-#      - name: Download a aks_patch_versions
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: aks_patch_versions
+      - name: Download a aks_versions
+        uses: actions/download-artifact@v4
+        with:
+          name: aks_versions
+
+      - name: Download a aks_patch_versions
+        uses: actions/download-artifact@v4
+        with:
+          name: aks_patch_versions
 
       - name: Send email
         env:
@@ -72,8 +72,9 @@ jobs:
           SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
         run: |   
+          ls
           cd aks-version
-          poetry run python aksversion.py
+          #poetry run python aksversion.py
           ls
         shell: bash
       - uses: actions/upload-artifact@v4
