@@ -32,8 +32,8 @@ class Email(object):
             # creating the email client
             email_client = EmailClient.from_connection_string(self.connection_string)
 
-
             patch_version = list(set(list_of_patch_versions) - set(previous_patch_versions))
+            logger.info(f"New patch version: {patch_version}")
             version_message = None
             if last_version > current_minor_version + 1:
                 version_message = f"Last AKS minor version is: {last_version}."
