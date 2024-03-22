@@ -63,7 +63,7 @@ class Email(object):
                 },
                 "senderAddress": self.sender_address
             }
-            minor_version_condition = last_version > current_minor_version + 1
+            minor_version_condition = last_version > current_minor_version + 0.01
             patch_version_condition = len(patch_version) != 0 and str(current_minor_version) in patch_version[0]
             logger.info(f"Minor version condition: {minor_version_condition}")
             logger.info(f"Patch version condition: {patch_version_condition}")
