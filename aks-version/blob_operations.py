@@ -12,10 +12,6 @@ def read_blobs():
     storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
     container_name = "versions"
     creds = DefaultAzureCredential()
-    service_client = BlobServiceClient(
-        account_url=storage_account_url,
-        credential=creds
-    )
 
     minor_versions_blob = "aks_versions.json"
     minor_versions_url = f"{storage_account_url}/{container_name}/{minor_versions_blob}"
@@ -47,10 +43,6 @@ def save_blobs(last_version: float, list_of_patch_versions: list[str]):
     storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
     container_name = "versions"
     creds = DefaultAzureCredential()
-    service_client = BlobServiceClient(
-        account_url=storage_account_url,
-        credential=creds
-    )
 
     minor_versions_blob = "aks_versions.json"
     minor_versions_url = f"{storage_account_url}/{container_name}/{minor_versions_blob}"
