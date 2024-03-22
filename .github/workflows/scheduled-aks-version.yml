@@ -7,12 +7,16 @@ on:
 #  schedule:
 #    - cron: '*/15 * * * *'
   push:
-    branches: [ "main" ]
+    branches: [ "adding" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "adding" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,47 +30,38 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID }}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install poetry
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-      - name: Run script file
-        run: |
-          cd aks-version
-          chmod +x ./miniconda.sh
-          ./miniconda.sh
+          curl -sSL https://install.python-poetry.org | python3 -
+          poetry --version
+          python --version
         shell: bash
 
-      - name: Create conda environment
+      - name: Install packages
         run: |
           cd aks-version
-          conda env create -f conda.yml -n aks_version
+          poetry init
+          poetry env list
+          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2
         shell: bash
 
       - name: Send email
-        run: |
-          export AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}
-          export AZURE_TENANT_ID=${{ vars.AZURE_TENANT_ID }}
-          export AZURE_CLIENT_ID=${{ vars.AZURE_CLIENT_ID }}
-          export ENDPOINT=${{ secrets.ENDPOINT }}
-          export ACCESS_KEY=${{ secrets.ACCESS_KEY }}
-          export STORAGE_ACCOUNT_URL=${{ secrets.STORAGE_ACCOUNT_URL }}
-          export SENDER_ADDRESS=${{ vars.SENDER_ADDRESS }}
-          export RECIPIENT_ADDRESS=${{ vars.RECIPIENT_ADDRESS }}
-          export SECOND_RECIPIENT_ADDRESS=${{ vars.SECOND_RECIPIENT_ADDRESS }}
-          export SUBSCRIPTION_ID=${{ vars.SUBSCRIPTION_ID }}
-          
-          
+        env:
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          STORAGE_ACCOUNT_URL: ${{ secrets.STORAGE_ACCOUNT_URL }}
+          SENDER_ADDRESS: ${{ vars.SENDER_ADDRESS }}
+          RECIPIENT_ADDRESS: ${{ vars.RECIPIENT_ADDRESS }}
+          SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
+          SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+        run: |   
           cd aks-version
-          conda init
-          eval "$(conda shell.bash hook)"
-          conda activate aks_version
-          python aksversion.py
-
+          poetry run python send_email.py
         shell: bash

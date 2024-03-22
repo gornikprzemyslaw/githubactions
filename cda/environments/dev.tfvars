@@ -1,0 +1,1 @@
+aks_minor_version = 1.27
