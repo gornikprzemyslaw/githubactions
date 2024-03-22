@@ -1,1 +1,1 @@
-aks_minor_version = 1.26
+aks_minor_version = 1.27
