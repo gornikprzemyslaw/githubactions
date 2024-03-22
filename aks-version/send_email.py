@@ -63,9 +63,12 @@ class Email(object):
                 },
                 "senderAddress": self.sender_address
             }
-
+            minor_version_condition = last_version > current_minor_version + 1
+            patch_version_condition = len(patch_version) != 0 and str(current_minor_version) in patch_version[0]
+            logger.info(f"Minor version condition: {minor_version_condition}")
+            logger.info(f"Patch version condition: {patch_version_condition}")
             try:
-                if last_version > current_minor_version + 1 or (len(patch_version) != 0 and str(current_minor_version) in patch_version[0]):
+                if minor_version_condition or patch_version_condition:
                     logger.info("Sending an email...")
                     poller = email_client.begin_send(message)
                     response = poller.result()
