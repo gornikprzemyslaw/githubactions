@@ -66,7 +66,6 @@ class Email(object):
             }
 
             try:
-                # sending the email message test
                 if((last_version > current_minor_version + 1) or (len(patch_version) != 0 and str(current_minor_version) in patch_version[0])):
                     poller = email_client.begin_send(message)
                     response = poller.result()
