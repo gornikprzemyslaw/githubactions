@@ -15,6 +15,7 @@ class Email(object):
 
 
     def send_email_to_multiple_recipients(self):
+        print(f"My Path: {os.getcwd()}")
 
         def check_minor_and_patch_versions():
             client = ContainerServiceClient(
