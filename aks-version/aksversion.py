@@ -5,6 +5,7 @@ from azure.communication.email import EmailClient
 from loguru import logger
 import os
 import json
+import hcl2
 
 class Email(object):
 
