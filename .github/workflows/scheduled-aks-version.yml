@@ -52,15 +52,6 @@ jobs:
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2
         shell: bash
 
-      - name: Downlod Artifacts
-        uses: actions/download-artifact@v3
-
-      - name: List Files
-        run: |
-          pwd
-          ls -R
-          
-
       - name: Send email
         env:
           ENDPOINT: ${{ secrets.ENDPOINT }}
@@ -71,16 +62,6 @@ jobs:
           SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
         run: |   
-          ls
           cd aks-version
           poetry run python aksversion.py
-          ls
         shell: bash
-      - uses: actions/upload-artifact@v4
-        with:
-          name: minor-versions
-          path: /home/runner/aks_versions.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: patch-versions
-          path: /home/runner/aks_patch_versions.json
