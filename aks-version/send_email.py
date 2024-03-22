@@ -1,13 +1,10 @@
-from azure.identity import DefaultAzureCredential
-from azure.mgmt.containerservice import ContainerServiceClient
 from azure.core.exceptions import HttpResponseError
 from azure.communication.email import EmailClient
 from loguru import logger
 import os
 from aks_operations import check_minor_and_patch_versions
 from blob_operations import read_blobs, save_blobs
-import json
-import hcl2
+
 
 class Email(object):
 
@@ -76,53 +73,6 @@ class Email(object):
             except HttpResponseError as ex:
                 logger.info(ex)
                 pass
-
-        # def save_blobs(last_version, list_of_patch_versions):
-        #     from azure.storage.blob import BlobClient, BlobServiceClient
-        #     import json
-        #     import ast
-        #
-        #     storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
-        #     container_name = "versions"
-        #     creds = DefaultAzureCredential()
-        #     service_client = BlobServiceClient(
-        #         account_url=storage_account_url,
-        #         credential=creds
-        #     )
-        #
-        #     minor_versions_blob = "aks_versions.json"
-        #     minor_versions_url = f"{storage_account_url}/{container_name}/{minor_versions_blob}"
-        #     minor_version_client = BlobClient.from_blob_url(
-        #         blob_url=minor_versions_url,
-        #         credential=creds
-        #     )
-        #     # save blob
-        #     save_minor_version = [last_version]
-        #     with open("save_minor_version", "w") as fp:
-        #         json.dump(save_minor_version, fp)
-        #
-        #     with open("save_minor_version", "r") as fp:
-        #         b = json.load(fp)
-        #
-        #     with open("save_minor_version", "rb") as blob_file:
-        #         minor_version_client.upload_blob(data=blob_file, overwrite=True)
-        #
-        #     patch_versions_blob = "aks_patch_versions.json"
-        #     patch_versions_url = f"{storage_account_url}/{container_name}/{patch_versions_blob}"
-        #     patch_version_client = BlobClient.from_blob_url(
-        #         blob_url=patch_versions_url,
-        #         credential=creds
-        #     )
-        #     # save blob
-        #
-        #     with open("list_of_patch_versions", "w") as fp:
-        #         json.dump(list_of_patch_versions, fp)
-        #
-        #     with open("list_of_patch_versions", "r") as fp:
-        #         b = json.load(fp)
-        #
-        #     with open("list_of_patch_versions", "rb") as blob_file:
-        #         patch_version_client.upload_blob(data=blob_file, overwrite=True)
 
         send_message()
         save_blobs(last_version, list_of_patch_versions)
