@@ -39,18 +39,6 @@ class Email(object):
                 else:
                     list_of_versions.append(float(i.version))
 
-            # logger.info(f"List of AKS minor versions: {list_of_versions}")
-            # logger.info(f"List of AKS preview: {list_of_preview_versions}")
-            # with open("/home/runner/aks_versions.json", "w") as fp:
-            #     json.dump(list_of_versions, fp)
-            # with open("/home/runner/aks_patch_versions.json", "w") as fp:
-            #     json.dump(list_of_patch_versions, fp)
-            # # with open("/home/runner/aks_versions.json", "r") as fp:
-            # #     aversions = json.load(fp)
-            # # with open("/home/runner/aks_patch_versions.json", "r") as fp:
-            # #     patchversions = json.load(fp)
-            # # print(aversions)
-            # # print(patchversions)
             with open("../cda/environments/dev.tfvars", "r") as file_in:
                 data = hcl2.load(file_in)
 
