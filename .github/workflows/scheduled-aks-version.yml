@@ -86,10 +86,11 @@ jobs:
           RECIPIENT_ADDRESS: ${{ vars.RECIPIENT_ADDRESS }}
           SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
-
         run: |   
-          cd aks-version
-          poetry run python aksversion.py
+#          cd aks-version
+#          poetry run python aksversion.py
+          cd /home/runner
+          ls
         shell: bash
       - uses: actions/upload-artifact@v4
         with:
