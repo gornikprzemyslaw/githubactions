@@ -1,11 +1,10 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.containerservice import ContainerServiceClient
+from azure.core.exceptions import HttpResponseError
+from azure.communication.email import EmailClient
+from loguru import logger
 import os
 import json
-from azure.core.exceptions import HttpResponseError
-from loguru import logger
-from azure.communication.email import EmailClient
-
 
 class Email(object):
 
@@ -27,14 +26,14 @@ class Email(object):
             response = client.managed_clusters.list_kubernetes_versions(
                 location="westeurope",
             )
-            # list_of_versions = []
-            # list_of_preview_versions = []
-            # list_of_patch_versions = []
+            list_of_versions = []
+            list_of_preview_versions = []
+            list_of_patch_versions = []
             for i in response.values:
                 for key in i.patch_versions.keys():
-                    if(i.is_preview != True):
+                    if i.is_preview is None:
                         list_of_patch_versions.append(key)
-                if(i.is_preview) == True:
+                if i.is_preview is True:
                     list_of_preview_versions.append(float(i.version))
                 else:
                     list_of_versions.append(float(i.version))
