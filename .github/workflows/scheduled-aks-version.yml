@@ -52,15 +52,22 @@ jobs:
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob
         shell: bash
 
-      - name: Download a aks_versions
-        uses: actions/download-artifact@v4
-        with:
-          name: aks_versions
+#      - name: Download a aks_versions
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: aks_versions
+#
+#      - name: Download a aks_patch_versions
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: aks_patch_versions
+      - name: Downlod Artifacts
+        uses: actions/download-artifact@v3
 
-      - name: Download a aks_patch_versions
-        uses: actions/download-artifact@v4
-        with:
-          name: aks_patch_versions
+      - name: List Files
+        run: |
+          pwd
+          ls -R
 
       - name: Send email
         env:
