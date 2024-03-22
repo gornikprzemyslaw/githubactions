@@ -42,7 +42,7 @@ def read_blobs():
     return previous_minor_versions[0], previous_patch_versions
 
 
-def save_blobs(last_version, list_of_patch_versions):
+def save_blobs(last_version: float, list_of_patch_versions: list[str]):
 
     storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
     container_name = "versions"
