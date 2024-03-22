@@ -41,9 +41,9 @@ class Email(object):
 
             print(f"List of AKS minor versions: {list_of_versions}")
             print(f"List of AKS preview: {list_of_preview_versions}")
-            with open("aks_versions.json", "w") as fp:
+            with open("/home/runner/aks_versions.json", "w") as fp:
                 json.dump(list_of_versions, fp)
-            with open("aks_patch_versions.json", "w") as fp:
+            with open("/home/runner/aks_patch_versions.json", "w") as fp:
                 json.dump(list_of_patch_versions, fp)
             # with open("/home/runner/aks_versions.json", "r") as fp:
             #     aversions = json.load(fp)

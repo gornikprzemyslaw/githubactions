@@ -79,8 +79,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: minor-versions
-          path: aks_versions.json
+          path: /home/runner/aks_versions.json
       - uses: actions/upload-artifact@v4
         with:
           name: patch-versions
-          path: aks_patch_versions.json
+          path: /home/runner/aks_patch_versions.json
