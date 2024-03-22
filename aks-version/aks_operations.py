@@ -1,6 +1,5 @@
 from azure.mgmt.containerservice import ContainerServiceClient
 from azure.identity import DefaultAzureCredential
-from loguru import logger
 import hcl2
 import os
 
@@ -40,5 +39,4 @@ def check_current_aks_version():
         data = hcl2.load(file_in)
 
     current_aks_minor_version = data["aks_minor_version"]
-    logger.info(f"Current AKS minor version: {current_aks_minor_version}")
     return current_aks_minor_version

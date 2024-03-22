@@ -22,8 +22,8 @@ class Email(object):
         logger.info(f"List of AKS patch versions: {list_of_patch_versions}")
 
         previous_patch_versions = read_blobs()
-        previous_minor_versions = check_current_aks_version()
-        logger.info(f"Previous minor version: {previous_minor_versions}")
+        current_minor_version = check_current_aks_version()
+        logger.info(f"Current AKS minor version: {current_minor_version}")
         logger.info(f"Previous patch versions: {previous_patch_versions}")
 
 
@@ -35,7 +35,7 @@ class Email(object):
 
             patch_version = list(set(list_of_patch_versions) - set(previous_patch_versions))
             version_message = None
-            if last_version > previous_minor_versions:
+            if last_version > current_minor_version + 1:
                 version_message = f"Last AKS minor version is: {last_version}."
             elif(len(patch_version) != 0):
                 version_message = f"Last AKS patch version is: {patch_version}."
@@ -67,7 +67,7 @@ class Email(object):
 
             try:
                 # sending the email message
-                if(last_version > previous_minor_versions or len(patch_version) != 0):
+                if(last_version > current_minor_version + 1 or len(patch_version) != 0):
                     poller = email_client.begin_send(message)
                     response = poller.result()
                     logger.info("Operation ID: " + response['id'])
