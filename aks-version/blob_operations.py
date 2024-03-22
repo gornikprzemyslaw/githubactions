@@ -1,5 +1,6 @@
 from azure.storage.blob import BlobClient, BlobServiceClient
 from azure.identity import DefaultAzureCredential
+from loguru import logger
 import json
 import ast
 import os

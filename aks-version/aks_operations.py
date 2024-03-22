@@ -1,5 +1,6 @@
 from azure.mgmt.containerservice import ContainerServiceClient
 from azure.identity import DefaultAzureCredential
+from loguru import logger
 import hcl2
 import os
 
