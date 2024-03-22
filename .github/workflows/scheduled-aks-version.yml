@@ -82,7 +82,7 @@ jobs:
         run: |   
           ls
           cd aks-version
-          #poetry run python aksversion.py
+          poetry run python aksversion.py
           ls
         shell: bash
       - uses: actions/upload-artifact@v4
