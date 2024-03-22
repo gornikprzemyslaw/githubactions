@@ -56,7 +56,7 @@ jobs:
         uses: actions/github-script@v6
         continue-on-error: true
         env:
-          WORKFLOW_FILENAME: .github/workflows/scheduled-aks-version.yml
+          WORKFLOW_FILENAME: scheduled-aks-version.yml
           ARTIFACT_NAME: minor-versions
           ARTIFACT_FILENAME: minor-versions.zip
           UNZIP_DIR: /home/runner
@@ -68,7 +68,7 @@ jobs:
         uses: actions/github-script@v6
         continue-on-error: true
         env:
-          WORKFLOW_FILENAME: .github/workflows/scheduled-aks-version.yml
+          WORKFLOW_FILENAME: scheduled-aks-version.yml
           ARTIFACT_NAME: patch-versions
           ARTIFACT_FILENAME: patch-versions.zip
           UNZIP_DIR: /home/runner
@@ -87,9 +87,8 @@ jobs:
           SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
         run: |   
-#          cd aks-version
-#          poetry run python aksversion.py
-          cd /home/runner
+          #cd aks-version
+          #poetry run python aksversion.py
           ls
         shell: bash
       - uses: actions/upload-artifact@v4
