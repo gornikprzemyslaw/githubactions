@@ -27,9 +27,9 @@ class Email(object):
             response = client.managed_clusters.list_kubernetes_versions(
                 location="westeurope",
             )
-            list_of_versions = []
-            list_of_preview_versions = []
-            list_of_patch_versions = []
+            # list_of_versions = []
+            # list_of_preview_versions = []
+            # list_of_patch_versions = []
             for i in response.values:
                 for key in i.patch_versions.keys():
                     if(i.is_preview != True):
