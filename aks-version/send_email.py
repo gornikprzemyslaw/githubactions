@@ -2,7 +2,7 @@ from azure.core.exceptions import HttpResponseError
 from azure.communication.email import EmailClient
 from loguru import logger
 import os
-from aks_operations import check_minor_and_patch_versions
+from aks_operations import check_minor_and_patch_versions, check_current_aks_version
 from blob_operations import read_blobs, save_blobs
 
 
@@ -21,7 +21,8 @@ class Email(object):
         logger.info(f"Preview version: {preview_version}")
         logger.info(f"List of AKS patch versions: {list_of_patch_versions}")
 
-        previous_minor_versions, previous_patch_versions = read_blobs()
+        previous_patch_versions = read_blobs()
+        previous_minor_versions = check_current_aks_version()
         logger.info(f"Previous minor version: {previous_minor_versions}")
         logger.info(f"Previous patch versions: {previous_patch_versions}")
 
@@ -75,7 +76,7 @@ class Email(object):
                 pass
 
         send_message()
-        save_blobs(last_version, list_of_patch_versions)
+        save_blobs(list_of_patch_versions)
 
 if __name__ == '__main__':
     sample = Email()
