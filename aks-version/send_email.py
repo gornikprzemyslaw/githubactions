@@ -63,6 +63,8 @@ class Email(object):
                 },
                 "senderAddress": self.sender_address
             }
+
+            #these conditions checks if new patch version from current version has been released or new minor version is 2 greater than the current one
             minor_version_condition = last_version > current_minor_version + 0.01
             patch_version_condition = len(patch_version) != 0 and str(current_minor_version) in patch_version[0]
             logger.info(f"Minor version condition: {minor_version_condition}")
