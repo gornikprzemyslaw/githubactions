@@ -66,11 +66,11 @@ jobs:
           cd aks-version
           poetry run python aksversion.py
         shell: bash
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: minor-versions
-#          path: path/to/artifact/world.txt
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: patch-versions
-#          path: path/to/artifact/world.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: minor-versions
+          path: /home/runner/aks_versions.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: patch-versions
+          path: /home/runner/aks_patch_versions.json

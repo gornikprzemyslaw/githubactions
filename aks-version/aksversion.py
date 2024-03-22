@@ -1,6 +1,7 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.containerservice import ContainerServiceClient
 import os
+import json
 from azure.core.exceptions import HttpResponseError
 
 from azure.communication.email import EmailClient
@@ -40,6 +41,10 @@ class Email(object):
 
             print(f"List of AKS minor versions: {list_of_versions}")
             print(f"List of AKS preview: {list_of_preview_versions}")
+            with open("/home/runner/aks_versions.json", "w") as fp:
+                json.dump(list_of_versions, fp)
+            with open("/home/runner/aks_patch_versions.json", "w") as fp:
+                json.dump(list_of_patch_versions, fp)
 
             last_version = max(list_of_versions)
             if len(list_of_preview_versions) == 0:
@@ -52,6 +57,7 @@ class Email(object):
         print(f"Last AKS version: {last_version}")
         print(f"Preview version: {preview_version}")
         print(f"List of AKS patch versions: {list_of_patch_versions}")
+
 
 
         def read_blobs():
