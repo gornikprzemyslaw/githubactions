@@ -3,7 +3,7 @@ from azure.mgmt.containerservice import ContainerServiceClient
 import os
 import json
 from azure.core.exceptions import HttpResponseError
-
+from loguru import logger
 from azure.communication.email import EmailClient
 
 
@@ -16,7 +16,7 @@ class Email(object):
 
 
     def send_email_to_multiple_recipients(self):
-        print(f"My Path: {os.getcwd()}")
+        logger.info(f"My Path: {os.getcwd()}")
 
         def check_minor_and_patch_versions():
             client = ContainerServiceClient(
@@ -39,8 +39,8 @@ class Email(object):
                 else:
                     list_of_versions.append(float(i.version))
 
-            print(f"List of AKS minor versions: {list_of_versions}")
-            print(f"List of AKS preview: {list_of_preview_versions}")
+            logger.info(f"List of AKS minor versions: {list_of_versions}")
+            logger.info(f"List of AKS preview: {list_of_preview_versions}")
             with open("/home/runner/aks_versions.json", "w") as fp:
                 json.dump(list_of_versions, fp)
             with open("/home/runner/aks_patch_versions.json", "w") as fp:
@@ -52,7 +52,7 @@ class Email(object):
             # print(aversions)
             # print(patchversions)
 
-            last_version = max(list_of_versions)
+            last_version = max(list_of_versions, default=None)
             if len(list_of_preview_versions) == 0:
                 preview_version = None
             else:
@@ -60,9 +60,9 @@ class Email(object):
             return last_version, preview_version, list_of_patch_versions
 
         last_version, preview_version, list_of_patch_versions = check_minor_and_patch_versions()
-        print(f"Last AKS version: {last_version}")
-        print(f"Preview version: {preview_version}")
-        print(f"List of AKS patch versions: {list_of_patch_versions}")
+        logger.info(f"Last AKS version: {last_version}")
+        logger.info(f"Preview version: {preview_version}")
+        logger.info(f"List of AKS patch versions: {list_of_patch_versions}")
 
 
 
@@ -106,8 +106,8 @@ class Email(object):
 
 
         previous_minor_versions, previous_patch_versions = read_blobs()
-        print(f"Previous minor version: {previous_minor_versions}")
-        print(f"Previous patch versions: {previous_patch_versions}")
+        logger.info(f"Previous minor version: {previous_minor_versions}")
+        logger.info(f"Previous patch versions: {previous_patch_versions}")
 
 
         def send_message():
@@ -153,9 +153,9 @@ class Email(object):
                 if(last_version > previous_minor_versions or len(patch_version) != 0):
                     poller = email_client.begin_send(message)
                     response = poller.result()
-                    print("Operation ID: " + response['id'])
+                    logger.info("Operation ID: " + response['id'])
             except HttpResponseError as ex:
-                print(ex)
+                logger.info(ex)
                 pass
         def save_blobs():
             from azure.storage.blob import BlobClient, BlobServiceClient
