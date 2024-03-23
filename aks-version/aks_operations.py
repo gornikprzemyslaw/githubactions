@@ -10,20 +10,20 @@ def check_minor_and_patch_versions():
         subscription_id=os.getenv("SUBSCRIPTION_ID"),
     )
 
-    response = client.managed_clusters.list_kubernetes_versions(
+    list_of_kubernetes_versions = client.managed_clusters.list_kubernetes_versions(
         location="westeurope",
     )
     list_of_versions = []
     list_of_preview_versions = []
     list_of_patch_versions = []
-    for i in response.values:
-        for key in i.patch_versions.keys():
-            if i.is_preview is None:
+    for kubernetes_version in list_of_kubernetes_versions.values:
+        for key in kubernetes_version.patch_versions.keys():
+            if kubernetes_version.is_preview is None:
                 list_of_patch_versions.append(key)
-        if i.is_preview is True:
-            list_of_preview_versions.append(float(i.version))
+        if kubernetes_version.is_preview is True:
+            list_of_preview_versions.append(float(kubernetes_version.version))
         else:
-            list_of_versions.append(float(i.version))
+            list_of_versions.append(float(kubernetes_version.version))
 
     last_version = max(list_of_versions, default=None)
     if len(list_of_preview_versions) == 0:
