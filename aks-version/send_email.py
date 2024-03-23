@@ -36,7 +36,7 @@ class Email(object):
             version_message = None
             if last_version > current_minor_version + 0.01:
                 version_message = f"Last AKS minor version is: {last_version}."
-            elif(len(patch_version) != 0):
+            elif(len(patch_version)):
                 version_message = f"Last AKS patch version is: {patch_version}."
 
 
@@ -66,7 +66,7 @@ class Email(object):
 
             #these conditions checks if new patch version from current version has been released or new minor version is 2 greater than the current one
             minor_version_condition = last_version > current_minor_version + 0.01
-            patch_version_condition = len(patch_version) != 0 and str(current_minor_version) in patch_version[0]
+            patch_version_condition = len(patch_version) and str(current_minor_version) in patch_version[0]
             logger.info(f"Minor version condition: {minor_version_condition}")
             logger.info(f"Patch version condition: {patch_version_condition}")
             try:

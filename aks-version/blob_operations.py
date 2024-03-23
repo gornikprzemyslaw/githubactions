@@ -3,6 +3,7 @@ from azure.identity import DefaultAzureCredential
 import json
 import ast
 import os
+import io
 
 storage_account_url = os.getenv("STORAGE_ACCOUNT_URL")
 container_name = "versions"
@@ -26,11 +27,5 @@ def read_blobs():
 
 def save_blobs(list_of_patch_versions: list[str]):
 
-    with open("list_of_patch_versions", "w") as fp:
-        json.dump(list_of_patch_versions, fp)
-
-    with open("list_of_patch_versions", "r") as fp:
-        b = json.load(fp)
-
-    with open("list_of_patch_versions", "rb") as blob_file:
-        patch_version_client.upload_blob(data=blob_file, overwrite=True)
+    input_stream = io.BytesIO(list_of_patch_versions)
+    patch_version_client.upload_blob(input_stream, blob_type="BlockBlob", overwrite=True)
