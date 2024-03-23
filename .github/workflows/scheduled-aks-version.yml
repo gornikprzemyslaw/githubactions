@@ -7,9 +7,9 @@ on:
 #  schedule:
 #    - cron: '*/15 * * * *'
   push:
-    branches: [ "adding" ]
+    branches: [ "another-improvement" ]
   pull_request:
-    branches: [ "adding" ]
+    branches: [ "another-improvement" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
