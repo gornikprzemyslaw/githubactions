@@ -13,3 +13,4 @@ from pathlib import Path
 destination_path = Path.joinpath(Path(__file__).parents[1], "cda/environments/dev.tfvars")
 
 print(destination_path)
+print(type(destination_path))
