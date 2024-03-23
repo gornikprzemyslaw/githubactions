@@ -45,7 +45,7 @@ jobs:
         shell: bash
 
       - name: Install packages
-        working-directiory: ./aks-version
+        working-directiory: aks-version
         run: |
           poetry init
           poetry env list
@@ -53,7 +53,7 @@ jobs:
         shell: bash
 
       - name: Send email
-        working-directiory: ./aks-version
+        working-directiory: aks-version
         env:
           ENDPOINT: ${{ secrets.ENDPOINT }}
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
