@@ -1,5 +1,6 @@
 from azure.mgmt.containerservice import ContainerServiceClient
 from azure.identity import DefaultAzureCredential
+from pathlib import Path
 import hcl2
 import os
 
@@ -35,7 +36,7 @@ def check_minor_and_patch_versions():
 
 def check_current_aks_version():
 
-    with open("../cda/environments/dev.tfvars", "r") as file_in:
+    with open(Path.joinpath(Path(__file__).parents[1], "cda/environments/dev.tfvars"), "r") as file_in:
         data = hcl2.load(file_in)
 
     current_aks_minor_version = data["aks_minor_version"]
