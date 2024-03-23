@@ -25,9 +25,9 @@ def read_blobs():
     return previous_patch_versions
 
 
-def save_blobs(list_of_patch_versions: list[str]):
+def save_blobs(patch_versions: list[str]):
 
-    jsonData = json.dumps(list_of_patch_versions)
-    binaryData = jsonData.encode()
-    input_stream = io.BytesIO(binaryData)
+    json_patch_versions= json.dumps(patch_versions)
+    binary_patch_versions = json_patch_versions.encode()
+    input_stream = io.BytesIO(binary_patch_versions)
     patch_version_client.upload_blob(input_stream, blob_type="BlockBlob", overwrite=True)
