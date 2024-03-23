@@ -8,9 +8,14 @@ import hcl2
 #
 # print(myvar)
 
-from pathlib import Path
+# from pathlib import Path
+#
+# destination_path = Path.joinpath(Path(__file__).parents[1], "cda/environments/dev.tfvars")
+#
+# print(destination_path)
+# print(type(destination_path))
 
-destination_path = Path.joinpath(Path(__file__).parents[1], "cda/environments/dev.tfvars")
-
-print(destination_path)
-print(type(destination_path))
+version_string = "1.27.7"
+major_minor_version = version_string.rsplit('.', 1)[0]  # Split at the last dot
+major_minor_float = float(major_minor_version)
+print(major_minor_float)

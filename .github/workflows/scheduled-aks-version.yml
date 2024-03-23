@@ -45,15 +45,14 @@ jobs:
         shell: bash
 
       - name: Install packages
-        working-directiory: $GITHUB_WORKSPACE/aks-version
         run: |
+          cd aks-version
           poetry init
           poetry env list
           poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2
         shell: bash
 
       - name: Send email
-        working-directiory: $GITHUB_WORKSPACE/aks-version
         env:
           ENDPOINT: ${{ secrets.ENDPOINT }}
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
@@ -63,5 +62,6 @@ jobs:
           SECOND_RECIPIENT_ADDRESS: ${{ vars.SECOND_RECIPIENT_ADDRESS }}
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
         run: |   
+          cd aks-version
           poetry run python send_email.py
         shell: bash
