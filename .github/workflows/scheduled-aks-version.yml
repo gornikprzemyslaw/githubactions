@@ -55,7 +55,7 @@ jobs:
         shell: bash
       - name: Check formatting with Black
         run: |
-          poetry run black --quiet --check --diff
+          poetry run black aks-version --quiet --check --diff
         shell: bash
 
       - name: Send email
