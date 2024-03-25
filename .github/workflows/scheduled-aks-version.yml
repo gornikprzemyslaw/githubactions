@@ -43,13 +43,15 @@ jobs:
           poetry --version
           python --version
         shell: bash
-
       - name: Install packages
         run: |
-          cd aks-version
-          poetry init
-          poetry env list
-          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2 black isort
+          poetry install
+#      - name: Install packages
+#        run: |
+#          cd aks-version
+#          poetry init
+#          poetry env list
+#          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2 black isort
         shell: bash
       - name: Check formatting with Black
         run: |
