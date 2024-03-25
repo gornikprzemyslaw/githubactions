@@ -44,7 +44,6 @@ class Email(object):
         elif len(patch_version):
             version_message = f"Last AKS patch version is: {patch_version}."
 
-
         # creating the email message
         message = {
             "content": {
@@ -73,7 +72,7 @@ class Email(object):
                         "address": self.second_recipient_address,
                         "displayName": "Customer Name 2",
                     },
-                ]
+                ],
             },
             "senderAddress": self.sender_address,
         }
