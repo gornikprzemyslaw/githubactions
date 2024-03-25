@@ -2,11 +2,11 @@
 requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-#[tool.poetry]
-#name = "app"  # TODO
-#version = "0.1.0"  # TODO
-#description = ""
-#authors = []
+[tool.poetry]
+name = "aks-version"
+version = "0.1.0"
+description = "For AKS alert"
+authors = ["PrzemyslawGornik"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
