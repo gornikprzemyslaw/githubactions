@@ -13,29 +13,36 @@ class Email(object):
     recipient_address = os.getenv("RECIPIENT_ADDRESS")
     second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
 
+    def __init__(self, last_version, preview_version, current_minor_version, list_of_patch_versions, previous_patch_versions):
+        self.last_version = last_version
+        self.preview_version = preview_version
+        self.current_minor_version = current_minor_version
+        self.list_of_patch_versions = list_of_patch_versions
+        self.previous_patch_versions = previous_patch_versions
+
 
     def send_email_to_multiple_recipients(self):
 
-        last_version, preview_version, list_of_patch_versions = check_minor_and_patch_versions()
-        logger.info(f"Last AKS version: {last_version}")
-        logger.info(f"Preview version: {preview_version}")
-        logger.info(f"List of AKS patch versions: {list_of_patch_versions}")
+        #last_version, preview_version, list_of_patch_versions = check_minor_and_patch_versions()
+        logger.info(f"Last AKS version: {self.last_version}")
+        logger.info(f"Preview version: {self.preview_version}")
+        logger.info(f"List of AKS patch versions: {self.list_of_patch_versions}")
 
-        previous_patch_versions = read_blobs()
-        current_minor_version = check_current_aks_version()
-        logger.info(f"Current AKS minor version: {current_minor_version}")
-        logger.info(f"Previous patch versions: {previous_patch_versions}")
+        #previous_patch_versions = read_blobs()
+        #current_minor_version = check_current_aks_version()
+        logger.info(f"Current AKS minor version: {self.current_minor_version}")
+        logger.info(f"Previous patch versions: {self.previous_patch_versions}")
 
 
         def send_message():
 
             email_client = EmailClient.from_connection_string(self.connection_string)
 
-            patch_version = list(set(list_of_patch_versions) - set(previous_patch_versions))
+            patch_version = list(set(self.list_of_patch_versions) - set(self.previous_patch_versions))
             logger.info(f"New patch version: {patch_version}")
             version_message = None
-            if last_version > current_minor_version + 0.01:
-                version_message = f"Last AKS minor version is: {last_version}."
+            if self.last_version > self.current_minor_version + 0.01:
+                version_message = f"Last AKS minor version is: {self.last_version}."
             elif(len(patch_version)):
                 version_message = f"Last AKS patch version is: {patch_version}."
 
@@ -65,8 +72,8 @@ class Email(object):
             }
 
             #these conditions checks if new patch version from current version has been released or new minor version is 2 greater than the current one
-            minor_version_condition = last_version > current_minor_version + 0.01
-            patch_version_condition = len(patch_version) and str(current_minor_version) in patch_version[0]
+            minor_version_condition = self.last_version > self.current_minor_version + 0.01
+            patch_version_condition = len(patch_version) and str(self.current_minor_version) in patch_version[0]
             logger.info(f"Minor version condition: {minor_version_condition}")
             logger.info(f"Patch version condition: {patch_version_condition}")
             try:
@@ -80,8 +87,8 @@ class Email(object):
                 pass
 
         send_message()
-        save_blobs(list_of_patch_versions)
+        #save_blobs(list_of_patch_versions)
 
-if __name__ == '__main__':
-    sample = Email()
-    sample.send_email_to_multiple_recipients()
+# if __name__ == '__main__':
+#     sample = Email()
+#     sample.send_email_to_multiple_recipients()

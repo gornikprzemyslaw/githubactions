@@ -63,5 +63,5 @@ jobs:
           SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
         run: |   
           cd aks-version
-          poetry run python send_email.py
+          poetry run python send_alert.py
         shell: bash
