@@ -49,7 +49,11 @@ jobs:
           cd aks-version
           poetry init
           poetry env list
-          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2
+          poetry add azure-identity azure-communication-email azure-mgmt-containerservice azure-storage-blob loguru python-hcl2 black isort
+        shell: bash
+      - name: Check formatting with Black
+        run: |
+          poetry run black --quiet --check --diff
         shell: bash
 
       - name: Send email
