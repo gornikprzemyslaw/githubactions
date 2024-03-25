@@ -21,7 +21,7 @@ azure-communication-email = "~1.0.0"
 azure-mgmt-containerservice = "^29.1.0"
 azure-storage-blob = "^12.19.1"
 loguru = "~0.7.2"
-python-hcl2 = "^14.3.2"
+python-hcl2 = "^4.3.2"
 
 [tool.black]
 line-length = 88
