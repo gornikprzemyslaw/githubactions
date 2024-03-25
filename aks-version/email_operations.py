@@ -12,12 +12,13 @@ class Email(object):
     second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
 
     def __init__(
-            self,
-            last_version,
-            preview_version,
-            current_minor_version,
-            list_of_patch_versions,
-            previous_patch_versions):
+        self,
+        last_version,
+        preview_version,
+        current_minor_version,
+        list_of_patch_versions,
+        previous_patch_versions,
+    ):
         self.last_version = last_version
         self.preview_version = preview_version
         self.current_minor_version = current_minor_version
@@ -40,7 +41,7 @@ class Email(object):
         version_message = None
         if self.last_version > self.current_minor_version + 0.01:
             version_message = f"Last AKS minor version is: {self.last_version}."
-        elif(len(patch_version)):
+        elif len(patch_version):
             version_message = f"Last AKS patch version is: {patch_version}."
 
 
@@ -49,28 +50,48 @@ class Email(object):
             "content": {
                 "subject": "Last AKS version",
                 "plainText": "This is the body",
-                "html": f"<html><h1>{version_message}</h1></html>"
+                "html": f"<html><h1>{version_message}</h1></html>",
             },
             "recipients": {
                 "to": [
-                    {"address": self.recipient_address, "displayName": "Customer Name"},
-                    {"address": self.second_recipient_address, "displayName": "Customer Name 2"}
+                    {
+                        "address": self.recipient_address,
+                        "displayName": "Customer Name"
+                    },
+                    {
+                        "address": self.second_recipient_address,
+                        "displayName": "Customer Name 2"
+                    }
                 ],
                 "cc": [
-                    {"address": self.recipient_address, "displayName": "Customer Name"},
-                    {"address": self.second_recipient_address, "displayName": "Customer Name 2"}
+                    {
+                        "address": self.recipient_address,
+                        "displayName": "Customer Name"
+                    },
+                    {
+                        "address": self.second_recipient_address,
+                        "displayName": "Customer Name 2"
+                    }
                 ],
                 "bcc": [
-                    {"address": self.recipient_address, "displayName": "Customer Name"},
-                    {"address": self.second_recipient_address, "displayName": "Customer Name 2"}
+                    {
+                        "address": self.recipient_address,
+                        "displayName": "Customer Name"
+                    },
+                    {
+                        "address": self.second_recipient_address,
+                        "displayName": "Customer Name 2"
+                    }
                 ]
             },
-            "senderAddress": self.sender_address
+            "senderAddress": self.sender_address,
         }
 
-        #these conditions checks if new patch version from current version has been released or new minor version is 2 greater than the current one
+        # these conditions checks if new patch version from current version has been released or new minor version is 2 greater than the current one
         minor_version_condition = self.last_version > self.current_minor_version + 0.01
-        patch_version_condition = len(patch_version) and str(self.current_minor_version) in patch_version[0]
+        patch_version_condition = (
+                len(patch_version) and str(self.current_minor_version) in patch_version[0]
+        )
         logger.info(f"Minor version condition: {minor_version_condition}")
         logger.info(f"Patch version condition: {patch_version_condition}")
         try:
@@ -78,7 +99,7 @@ class Email(object):
                 logger.info("Sending an email...")
                 poller = email_client.begin_send(message)
                 response = poller.result()
-                logger.info("Operation ID: " + response['id'])
+                logger.info("Operation ID: " + response["id"])
         except HttpResponseError as ex:
             logger.info(ex)
             pass

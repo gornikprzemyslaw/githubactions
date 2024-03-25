@@ -16,7 +16,7 @@ if __name__ == "__main__":
         preview_version,
         current_minor_version,
         list_of_patch_versions,
-        previous_patch_versions
+        previous_patch_versions,
     )
     email.send_email_to_multiple_recipients()
     save_blobs(list_of_patch_versions)
