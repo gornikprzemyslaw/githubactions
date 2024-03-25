@@ -6,7 +6,7 @@ if __name__ == "__main__":
     (
         last_version,
         preview_version,
-        list_of_patch_versions
+        list_of_patch_versions,
     ) = check_minor_and_patch_versions()
     current_minor_version = check_current_aks_version()
     previous_patch_versions = read_blobs()

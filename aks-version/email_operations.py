@@ -60,8 +60,8 @@ class Email(object):
                     },
                     {
                         "address": self.second_recipient_address,
-                        "displayName": "Customer Name 2"
-                    }
+                        "displayName": "Customer Name 2",
+                    },
                 ],
                 "cc": [
                     {
@@ -70,8 +70,8 @@ class Email(object):
                     },
                     {
                         "address": self.second_recipient_address,
-                        "displayName": "Customer Name 2"
-                    }
+                        "displayName": "Customer Name 2",
+                    },
                 ],
                 "bcc": [
                     {
@@ -80,8 +80,8 @@ class Email(object):
                     },
                     {
                         "address": self.second_recipient_address,
-                        "displayName": "Customer Name 2"
-                    }
+                        "displayName": "Customer Name 2",
+                    },
                 ]
             },
             "senderAddress": self.sender_address,
@@ -90,7 +90,7 @@ class Email(object):
         # these conditions checks if new patch version from current version has been released or new minor version is 2 greater than the current one
         minor_version_condition = self.last_version > self.current_minor_version + 0.01
         patch_version_condition = (
-                len(patch_version) and str(self.current_minor_version) in patch_version[0]
+            len(patch_version) and str(self.current_minor_version) in patch_version[0]
         )
         logger.info(f"Minor version condition: {minor_version_condition}")
         logger.info(f"Patch version condition: {patch_version_condition}")
