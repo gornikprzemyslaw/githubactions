@@ -54,30 +54,21 @@ class Email(object):
             },
             "recipients": {
                 "to": [
-                    {
-                        "address": self.recipient_address,
-                        "displayName": "Customer Name"
-                    },
+                    {"address": self.recipient_address, "displayName": "Customer Name"},
                     {
                         "address": self.second_recipient_address,
                         "displayName": "Customer Name 2",
                     },
                 ],
                 "cc": [
-                    {
-                        "address": self.recipient_address,
-                        "displayName": "Customer Name"
-                    },
+                    {"address": self.recipient_address, "displayName": "Customer Name"},
                     {
                         "address": self.second_recipient_address,
                         "displayName": "Customer Name 2",
                     },
                 ],
                 "bcc": [
-                    {
-                        "address": self.recipient_address,
-                        "displayName": "Customer Name"
-                    },
+                    {"address": self.recipient_address, "displayName": "Customer Name"},
                     {
                         "address": self.second_recipient_address,
                         "displayName": "Customer Name 2",
