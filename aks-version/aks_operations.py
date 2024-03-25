@@ -40,6 +40,6 @@ def check_current_aks_version():
         data = hcl2.load(file_in)
 
     current_aks_patch_version = data["aks_patch_version"]
-    current_aks_minor_version = current_aks_patch_version.rsplit('.', 1)[0]  # Split at the last dot
+    current_aks_minor_version = current_aks_patch_version.rsplit('.', 1)[0]
     current_aks_minor_version = float(current_aks_minor_version)
     return current_aks_minor_version
