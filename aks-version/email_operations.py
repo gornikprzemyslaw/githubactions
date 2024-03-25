@@ -6,7 +6,8 @@ import os
 
 class Email(object):
 
-    connection_string = os.getenv("ENDPOINT") + ";" + os.getenv("ACCESS_KEY")
+    #connection_string = os.getenv("ENDPOINT") + ";" + os.getenv("ACCESS_KEY")
+    connection_string = os.getenv("CONNECTION_STRING")
     sender_address = os.getenv("SENDER_ADDRESS")
     recipient_address = os.getenv("RECIPIENT_ADDRESS")
     second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")

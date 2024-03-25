@@ -54,6 +54,7 @@ jobs:
 
       - name: Send email
         env:
+          CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
           STORAGE_ACCOUNT_URL: ${{ secrets.STORAGE_ACCOUNT_URL }}
