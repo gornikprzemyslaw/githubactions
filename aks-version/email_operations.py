@@ -34,6 +34,8 @@ class Email(object):
         logger.info(f"Current AKS minor version: {self.current_minor_version}")
         logger.info(f"Previous patch versions: {self.previous_patch_versions}")
 
+        # Checks if there is a difference between the previously saved patch versions and the current patch versions
+        # If there is the new patch version is stored in the variable patch_version; otherwise this variable equals None
         patch_version = list(
             set(self.list_of_patch_versions) - set(self.previous_patch_versions)
         )
