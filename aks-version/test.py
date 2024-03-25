@@ -15,7 +15,7 @@ import hcl2
 # print(destination_path)
 # print(type(destination_path))
 
-version_string = "1.27.7"
-major_minor_version = version_string.rsplit('.', 1)[0]  # Split at the last dot
-major_minor_float = float(major_minor_version)
-print(major_minor_float)
+# version_string = "1.27.7"
+# major_minor_version = version_string.rsplit('.', 1)[0]  # Split at the last dot
+# major_minor_float = float(major_minor_version)
+# print(major_minor_float)

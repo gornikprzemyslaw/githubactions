@@ -6,13 +6,18 @@ import os
 
 class Email(object):
 
-    #connection_string = os.getenv("ENDPOINT") + ";" + os.getenv("ACCESS_KEY")
     connection_string = os.getenv("CONNECTION_STRING")
     sender_address = os.getenv("SENDER_ADDRESS")
     recipient_address = os.getenv("RECIPIENT_ADDRESS")
     second_recipient_address = os.getenv("SECOND_RECIPIENT_ADDRESS")
 
-    def __init__(self, last_version, preview_version, current_minor_version, list_of_patch_versions, previous_patch_versions):
+    def __init__(
+            self,
+            last_version,
+            preview_version,
+            current_minor_version,
+            list_of_patch_versions,
+            previous_patch_versions):
         self.last_version = last_version
         self.preview_version = preview_version
         self.current_minor_version = current_minor_version
@@ -28,7 +33,9 @@ class Email(object):
         logger.info(f"Current AKS minor version: {self.current_minor_version}")
         logger.info(f"Previous patch versions: {self.previous_patch_versions}")
 
-        patch_version = list(set(self.list_of_patch_versions) - set(self.previous_patch_versions))
+        patch_version = list(
+            set(self.list_of_patch_versions) - set(self.previous_patch_versions)
+        )
         logger.info(f"New patch version: {patch_version}")
         version_message = None
         if self.last_version > self.current_minor_version + 0.01:

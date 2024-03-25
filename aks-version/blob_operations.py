@@ -11,8 +11,7 @@ creds = DefaultAzureCredential()
 patch_versions_blob = "aks_patch_versions.json"
 patch_versions_url = f"{storage_account_url}/{container_name}/{patch_versions_blob}"
 patch_version_client = BlobClient.from_blob_url(
-    blob_url=patch_versions_url,
-    credential=creds
+    blob_url=patch_versions_url, credential=creds
 )
 
 
@@ -27,7 +26,9 @@ def read_blobs():
 
 def save_blobs(patch_versions: list[str]):
 
-    json_patch_versions= json.dumps(patch_versions)
+    json_patch_versions = json.dumps(patch_versions)
     binary_patch_versions = json_patch_versions.encode()
     input_stream = io.BytesIO(binary_patch_versions)
-    patch_version_client.upload_blob(input_stream, blob_type="BlockBlob", overwrite=True)
+    patch_version_client.upload_blob(
+        input_stream, blob_type="BlockBlob", overwrite=True
+    )
